@@ -1,0 +1,9 @@
+                                 Minimalistic website templates: Enjoy for free.
+<img width="1842" height="745" alt="black" src="https://github.com/user-attachments/assets/05a2db83-20c9-4dc7-bb4f-a8ecd2bc07f5" />
+<img width="1842" height="745" alt="blue" src="https://github.com/user-attachments/assets/7d2dbe57-4030-487b-99dc-3e8781909b55" />
+<img width="1842" height="745" alt="color" src="https://github.com/user-attachments/assets/a2ed9a70-22ca-4e99-951c-abb2ce83ac37" />
+<img width="1842" height="745" alt="lime" src="https://github.com/user-attachments/assets/141bd50c-9275-4ccf-abd9-2ab425086292" />
+<img width="1842" height="745" alt="orange" src="https://github.com/user-attachments/assets/c362222e-c500-4af7-971e-7bb9031a605a" />
+<img width="1842" height="745" alt="pink" src="https://github.com/user-attachments/assets/c3d21428-8257-4197-a74a-db4d78c1079a" />
+<img width="1842" height="745" alt="red" src="https://github.com/user-attachments/assets/ad350062-c6f3-47ed-a8fd-707fca5e4b86" />
+<img width="1842" height="745" alt="white" src="https://github.com/user-attachments/assets/ead1d473-5c53-4960-bb71-9f765281289a" />
