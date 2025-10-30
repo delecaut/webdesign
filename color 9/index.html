@@ -1,0 +1,242 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Micro color 9 website</title>
+<style>html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:#0f1020;overflow:hidden;color:#eaeef8}#bg{background: url('a.jpg') center center no-repeat;
+background-size: cover;
+background-attachment: fixed;position:fixed;inset:0;z-index:0;overflow:hidden}#bg .layer{position:absolute;border-radius:50%;filter:blur(60px);mix-blend-mode:screen;opacity:.9;animation:float 12s ease-in-out infinite}#bg .l1{width:720px;height:720px;left:-10%;top:-20%;animation-duration:18s}#bg .l2{width:520px;height:520px;right:-8%;top:10%;animation-duration:20s}#bg .l3{width:420px;height:420px;left:20%;bottom:-18%;animation-duration:16s}@keyframes float{0%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-30px) rotate(12deg)}100%{transform:translateY(0) rotate(0deg)}}#app{position:relative;z-index:2;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px}header{position:fixed;left:28px;top:20px;color:#cfe9ff;z-index:30;font-weight:600;letter-spacing:1px}#menu{position:fixed;left:50%;transform:translateX(-50%);bottom:28px;display:flex;gap:12px;z-index:40}#menu .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));backdrop-filter:blur(6px);color:#fff;cursor:pointer;user-select:none;border:1px solid rgba(255,255,255,0.06);box-shadow:0 6px 22px rgba(2,6,23,0.6);transition:transform .25s cubic-bezier(.2,.9,.2,1),box-shadow .25s linear}#menu .btn:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.6)}#menu .btn.active{background:linear-gradient(90deg,rgba(255,255,255,0.16),rgba(255,255,255,0.06));color:#071027}#tools{position:relative}#tools .submenu{position:absolute;bottom:56px;left:50%;transform:translateX(-50%);display:none;flex-direction:column;gap:8px;padding:10px;background:rgba(6,8,20,0.7);border-radius:12px;border:1px solid rgba(255,255,255,0.04)}#tools.open .submenu{display:flex}#tools .submenu .sbtn{padding:8px 12px;border-radius:8px;background:rgba(255,255,255,0.03);cursor:pointer;color:#dfefff}#tools .submenu .sbtn:hover{background:rgba(255,255,255,0.06)} .overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:50;padding:30px} .overlay.show{display:flex} .panel{width:min(880px,94vw);max-height:86vh;background:linear-gradient(180deg,rgba(10,12,22,0.96),rgba(7,9,18,0.98));border-radius:14px;padding:28px;box-shadow:0 30px 80px rgba(2,6,23,0.7);overflow:auto;border:1px solid rgba(255,255,255,0.03);transform:translateY(18px) scale(.995);opacity:0;animation:panelIn .36s cubic-bezier(.2,.9,.2,1) forwards} @keyframes panelIn{to{transform:none;opacity:1}} .panel h1{margin:0 0 12px 0;font-size:28px;letter-spacing:2px;color:#f6fbff;text-shadow:0 6px 30px rgba(106,144,255,0.06)} .panel p{color:#c9d8ff;line-height:1.5} #gallery{position:fixed;inset:0;display:none;z-index:46;padding:28px;background:linear-gradient(180deg,rgba(2,4,12,0.9),rgba(6,8,20,0.95));overflow:auto}#gallery.show{display:block}#grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:1200px;margin:24px auto}#grid .cell{border-radius:10px;overflow:hidden;position:relative;background:#0b0c14}#grid img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s cubic-bezier(.2,.8,.2,1),filter .3s}#grid img:hover{transform:scale(1.06);filter:brightness(1.02)}#zoom{position:fixed;inset:0;display:none;z-index:70;align-items:center;justify-content:center;background:rgba(2,4,10,0.88)}#zoom.show{display:flex}#zoom img{max-width:92vw;max-height:92vh;border-radius:12px;box-shadow:0 30px 90px rgba(3,6,20,0.8);transform-origin:center;animation:zoomIn .28s ease}@keyframes zoomIn{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}#hint{position:absolute;top: 1em; left: 4em;transform:translateX(-50%);background:rgba(255,255,255,0.06);padding:8px 14px;border-radius:999px;color:#eaf3ff;font-size:13px;z-index:80;display:none}#hint.show{display:block}.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px} .cal .day{padding:10px 8px;border-radius:8px;text-align:center;color:#bcd6ff;background:rgba(255,255,255,0.02)} .cal .day.header{font-weight:700;color:#e6f0ff;background:transparent} .cal .day.today{background:linear-gradient(90deg,#6b8cff,#7fffd4);color:#021;box-shadow:0 8px 30px rgba(107,140,255,0.12)} .cal-controls{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px} .cal-controls button{background:rgba(255,255,255,0.04);border:0;padding:6px 10px;border-radius:8px;color:#dff;cursor:pointer}.calc{width:320px;max-width:94vw;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:12px;border-radius:12px;box-shadow:0 18px 50px rgba(2,6,23,0.6)} .display{background:rgba(0,0,0,0.45);padding:12px;border-radius:8px;color:#eaf3ff;text-align:right;font-size:22px;margin-bottom:10px;min-height:44px;display:flex;align-items:center;justify-content:flex-end} .keys{display:grid;grid-template-columns:repeat(4,1fr);gap:8px} .key{padding:12px;border-radius:8px;background:rgba(255,255,255,0.03);color:#eaf3ff;text-align:center;cursor:pointer;user-select:none} .key.op{background:linear-gradient(90deg,#ffd76b,#ff9a76);color:#071027;font-weight:700} .key.equal{grid-column:span 2;background:linear-gradient(90deg,#7af59b,#42f5d6);color:#012} .key.clear{background:rgba(255,255,255,0.06)}/* responsive */@media(max-width:900px){#grid{grid-template-columns:repeat(2,1fr)}.panel{width:min(92vw,760px)}}@media(max-width:520px){#menu{gap:8px}#grid{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<div id="bg"><div class="layer l1"></div><div class="layer l2"></div><div class="layer l3"></div></div>
+<div id="app">
+    <div id="overlay" class="overlay" aria-hidden="true"><div class="panel" id="panel-content"><h1 id="panel-title"></h1><div id="panel-body"></div></div></div>
+  <div id="gallery" aria-hidden="true">
+    <div id="grid">
+      <div class="cell"><img src="b.jpg" alt="b"></div>
+      <div class="cell"><img src="c.jpg" alt="c"></div>
+      <div class="cell"><img src="d.jpg" alt="d"></div>
+      <div class="cell"><img src="e.jpg" alt="e"></div>
+      <div class="cell"><img src="f.jpg" alt="f"></div>
+      <div class="cell"><img src="g.jpg" alt="g"></div>
+      <div class="cell"><img src="h.jpg" alt="h"></div>
+      <div class="cell"><img src="i.jpg" alt="i"></div>
+      <div class="cell"><img src="j.jpg" alt="j"></div>
+    </div>
+  </div>
+  <div id="zoom"><img src="" alt="zoomed"></div>
+  <div id="hint">Esc = Close</div>
+</div>
+<div id="menu">
+  <div class="btn" data-act="home">home</div>
+  <div class="btn" data-act="about">about</div>
+  <div class="btn" data-act="team">team</div>
+  <div class="btn" data-act="news">news</div>
+  <div class="btn" data-act="blog">blog</div>
+  <div class="btn" data-act="gallery">gallery</div>
+  <div id="tools" class="btn" data-act="tools">
+    tools
+    <div class="submenu">
+      <div class="sbtn" data-tool="calendar">Calendar</div>
+      <div class="sbtn" data-tool="calculator">Calculator</div>
+    </div>
+  </div>
+  <div class="btn" data-act="contact">contact</div>
+</div>
+<script>
+(function(){
+  const btns = document.querySelectorAll('#menu .btn');
+  const overlay = document.getElementById('overlay');
+  const panelTitle = document.getElementById('panel-title');
+  const panelBody = document.getElementById('panel-body');
+  const gallery = document.getElementById('gallery');
+  const gridImgs = document.querySelectorAll('#grid img');
+  const zoom = document.getElementById('zoom');
+  const zoomImg = zoom.querySelector('img');
+  const hint = document.getElementById('hint');
+  const toolsBtn = document.getElementById('tools');
+  const submenuBtns = document.querySelectorAll('#tools .sbtn');
+  function hideAll(){overlay.classList.remove('show');overlay.setAttribute('aria-hidden','true');gallery.classList.remove('show');gallery.setAttribute('aria-hidden','true');zoom.classList.remove('show');hint.classList.remove('show');btns.forEach(b=>b.classList.remove('active'));toolsBtn.classList.remove('open');}
+  function showHint(){hint.classList.add('show');}
+  function hideHint(){hint.classList.remove('show');}
+  function showPanel(title,htmlContent){panelTitle.textContent = title;panelBody.innerHTML = htmlContent;overlay.classList.add('show');overlay.setAttribute('aria-hidden','false');showHint();}
+  btns.forEach(b=>{
+    b.addEventListener('click',()=>{
+      const act = b.getAttribute('data-act');
+        if(act==='tools'){
+        toolsBtn.classList.toggle('open');
+        b.classList.toggle('active', toolsBtn.classList.contains('open'));
+        return;
+      }
+      toolsBtn.classList.remove('open');
+      btns.forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      if(act==='home'){ hideAll(); return; }
+      if(act==='gallery'){ hideAll(); gallery.classList.add('show'); gallery.setAttribute('aria-hidden','false'); showHint(); return; }
+       const content = {
+        about:'<p>Section <strong>About</strong>. Some text.</p><p>Some text.</p>',
+        team:'<p><strong>Team</strong>: Michael Coder — front, Anna Flower — design</p>',
+        news:'<p><strong>News</strong>: Some text.</p>',
+        blog:'<p><strong>Blog</strong>: Some text.</p>',
+        contact:'<p><strong>Contact</strong>: @<br>Tel. </p>'
+      };
+      showPanel(act, content[act] || '<p>Some text.</p>');
+    });
+  });
+  gridImgs.forEach(img=>{
+    img.addEventListener('click', e=>{
+      e.stopPropagation();
+      const src = img.getAttribute('src');
+      if(zoom.classList.contains('show') && zoomImg.src && zoomImg.src.includes(src)){
+        zoom.classList.remove('show');
+        zoomImg.src = '';
+        if(gallery.classList.contains('show')) showHint(); else hideHint();
+      } else {
+        zoomImg.src = src;
+        zoom.classList.add('show');
+        zoomImg.onload = ()=>{  };
+        showHint();
+      }
+    });
+  });
+  zoom.addEventListener('click', ()=>{
+    zoom.classList.remove('show');
+    zoomImg.src = '';
+    if(!gallery.classList.contains('show')) hideHint();
+  });
+  overlay.addEventListener('click', (e)=>{
+    if(e.target === overlay) hideAll();
+  });
+  gallery.addEventListener('click', (e)=>{
+    if(e.target === gallery) hideAll();
+  });
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape'){
+      if(zoom.classList.contains('show')){ zoom.classList.remove('show'); zoomImg.src=''; if(!gallery.classList.contains('show')) hideHint(); return; }
+      hideAll();
+    }
+  });
+  submenuBtns.forEach(s=>{
+    s.addEventListener('click', ()=>{
+      const tool = s.getAttribute('data-tool');
+      toolsBtn.classList.remove('open');
+      btns.forEach(x=>x.classList.remove('active'));
+      if(tool === 'calendar'){
+        showCalendarPanel();
+      } else if(tool === 'calculator'){
+        showCalculatorPanel();
+      }
+    });
+  });
+  function showCalendarPanel(){
+    const now = new Date();
+    const containerId = 'cal-' + Date.now();
+    showPanel('Calendar', `<div id="${containerId}"></div>`);
+    buildCalendar(document.getElementById(containerId), now.getFullYear(), now.getMonth());
+  }
+  function buildCalendar(root, year, month){
+    root.innerHTML = '';
+    const controls = document.createElement('div');
+    controls.className = 'cal-controls';
+    const prev = document.createElement('button'); prev.textContent = '‹';
+    const next = document.createElement('button'); next.textContent = '›';
+    const title = document.createElement('div'); title.style.fontWeight='700'; title.style.color='#eaf3ff';
+    controls.appendChild(prev); controls.appendChild(title); controls.appendChild(next);
+    root.appendChild(controls);
+    const grid = document.createElement('div'); grid.className='cal';
+    const days = ['Mon','Tue','Wed','Thu','Fri','Sa','Su'];
+    days.forEach(d=>{const el=document.createElement('div');el.className='day header';el.textContent=d;grid.appendChild(el);});
+    const first = new Date(year,month,1);
+    const last = new Date(year, month+1, 0);
+    const offset = (first.getDay() + 6) % 7; 
+    for(let i=0;i<offset;i++){ const empty=document.createElement('div'); empty.className='day'; empty.textContent=''; grid.appendChild(empty); }
+    for(let d=1; d<=last.getDate(); d++){
+      const cell = document.createElement('div');
+      cell.className='day';
+      cell.textContent = d;
+      const cellDate = new Date(year, month, d);
+      const today = new Date();
+      if(cellDate.toDateString() === today.toDateString()){ cell.classList.add('today'); }
+      cell.addEventListener('click', ()=>{ alert('Wybrano: ' + cellDate.toLocaleDateString()); });
+      grid.appendChild(cell);
+    }
+    root.appendChild(grid);
+      const monthNames = ['January','February','March','Aprit','May','June','Jule','August','September','October','November','December'];
+    title.textContent = monthNames[month] + ' ' + year;
+    prev.addEventListener('click', ()=>{ const mm = new Date(year,month-1,1); buildCalendar(root, mm.getFullYear(), mm.getMonth()); });
+    next.addEventListener('click', ()=>{ const mm = new Date(year,month+1,1); buildCalendar(root, mm.getFullYear(), mm.getMonth()); });
+  }
+  function showCalculatorPanel(){
+    const calcId = 'calc-' + Date.now();
+    const calcHTML = `
+      <div style="display:flex;gap:18px;flex-wrap:wrap">
+        <div class="calc" id="${calcId}">
+          <div class="display" id="${calcId}-disp">0</div>
+          <div class="keys">
+            <div class="key clear" data-key="C">C</div>
+            <div class="key" data-key="(">(</div>
+            <div class="key" data-key=")">)</div>
+            <div class="key op" data-key="/">÷</div>
+            <div class="key" data-key="7">7</div>
+            <div class="key" data-key="8">8</div>
+            <div class="key" data-key="9">9</div>
+            <div class="key op" data-key="*">×</div>
+            <div class="key" data-key="4">4</div>
+            <div class="key" data-key="5">5</div>
+            <div class="key" data-key="6">6</div>
+            <div class="key op" data-key="-">−</div>
+            <div class="key" data-key="1">1</div>
+            <div class="key" data-key="2">2</div>
+            <div class="key" data-key="3">3</div>
+            <div class="key op" data-key="+">+</div>
+            <div class="key" data-key="0">0</div>
+            <div class="key" data-key=".">.</div>
+            <div class="key equal" data-key="=">=</div>
+            <div class="key" data-key="%">%</div>
+          </div>
+        </div>
+        <div style="max-width:360px;color:#cfe9ff">
+          <h3 style="margin-top:6px">Calculator</h3>
+          <p>Have a nice day.</p>
+        </div>
+      </div>
+    `;
+    showPanel('Calculator', calcHTML);
+    setTimeout(()=>initCalculator(calcId),20);
+  }
+  function initCalculator(id){
+    const disp = document.getElementById(id + '-disp');
+    const keys = document.querySelectorAll('#' + id + ' .key');
+    let exp = '';
+    function render(){ disp.textContent = exp || '0'; }
+    function safeEval(s){
+      try{
+          if(/^[0-9+\-*/().% \t]+$/.test(s)){
+          const transformed = s.replace(/([0-9]+(?:\.[0-9]+)?)%/g, '($1/100)');
+         return Function('"use strict";return (' + transformed + ')')();
+        } else { throw 'invalid'; }
+      }catch(e){ return 'Err'; }
+    }
+    keys.forEach(k=>{
+      k.addEventListener('click', ()=>{
+        const kx = k.getAttribute('data-key');
+        if(kx === 'C'){ exp = ''; render(); return; }
+        if(kx === '='){ const r = safeEval(exp); exp = (r === 'Err' ? '' : String(r)); render(); return; }
+        exp += kx;
+        render();
+      });
+    });
+    document.addEventListener('keydown', function onKey(e){
+      if(!document.body.contains(disp)) { document.removeEventListener('keydown', onKey); return; }
+      const key = e.key;
+      if(key === 'Escape'){ hideAll(); return; }
+      if(key === 'Enter'){ e.preventDefault(); const r = safeEval(exp); exp = (r === 'Err' ? '' : String(r)); render(); return; }
+      if(key === 'Backspace'){ exp = exp.slice(0,-1); render(); return; }
+      if(/^[0-9+\-*/().%]$/.test(key) || key === '.') { exp += key; render(); return; }
+    });
+  }
+  hideAll();
+  setTimeout(()=>{ const hs = hint; hs.classList.add('show'); setTimeout(()=>{ if(!overlay.classList.contains('show') && !gallery.classList.contains('show') && !zoom.classList.contains('show')) hs.classList.remove('show'); },2200); },900);
+})();
+</script>
+</body>
+</html>

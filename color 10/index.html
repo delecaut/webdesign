@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Micro color 10 website</title>
+<style>
+body{margin:0;padding:0;height:100vh;background:url('a.jpg') no-repeat center/cover;font-family:Arial,sans-serif;overflow:hidden}#menu{position:fixed;top:3em;left:50%;transform:translateX(-50%);display:flex;gap:1em;z-index:10}.menu-btn{background:rgba(255,255,255,0.7);padding:0.5em 1em;border:none;border-radius:0.5em;cursor:pointer;font-weight:700;transition:background 0.3s}.menu-btn:hover,.menu-btn.active{background:rgba(255,255,255,1)}#modalOverlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:999}#modal{color:aqua; background:black; opacity:0.8;width:80vw;height:80vh;overflow-y:auto;border-radius:1em;padding:2em;position:relative; display:flex;align-items:center;justify-content:center;}#closeBtn{position:absolute;top:0.5em;right:0.75em;background:#333;color:#fff;border:none;border-radius:0.75em;width:2em;height:2em;cursor:pointer;font-weight:700;font-size:1.2em;line-height:2em;text-align:center;transition:background 0.3s}#closeBtn:hover{background:#555}.section{margin-top:1.5em}.gallery{display:box; align-items:center;justify-content:center; max-width:40em;}.gallery img{width:100%;border-radius:0.5em;cursor:pointer;object-fit:cover;height:6em}#contactForm{display:flex;flex-direction:column}#contactForm input,#contactForm textarea{margin-bottom:1em;padding:0.5em;border-radius:0.5em;border:1px solid #ccc}#contactForm button{padding:0.75em;background:#333;color:#fff;border:none;border-radius:0.5em;font-weight:700;cursor:pointer}#contactForm button:hover{background:#555}@media(max-width:40em){#modal{width:90vw}}@media(max-width:500px){#menu button{margin-top:1em;padding:0.5em}}#fullImageOverlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);align-items:center;justify-content:center;z-index:2000}#fullImageOverlay img{max-width:90vw;max-height:90vh;border-radius:1em;cursor:pointer}#centerWindow {opacity: 0;transform:translateX(-150%) rotate(0deg);transition: transform 2s ease-out, opacity 2s ease-out;}#centerWindow.slide-in {opacity: 1;transform:translateX(0) rotate(0deg);}
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div id="menu">
+  <button class="menu-btn" data-section="about">About</button>
+  <button class="menu-btn" data-section="team">Team</button>
+  <button class="menu-btn" data-section="projects">Projects</button>
+  <button class="menu-btn" data-section="gallery">Gallery</button>
+  <button class="menu-btn" data-section="contact">Contact</button>
+</div>
+<div id="modalOverlay">
+  <div id="modal">
+    <button id="closeBtn">&times;</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+<div id="fullImageOverlay">
+  <img src="" alt="Zommed" />
+</div>
+<div id="centerWindow" style="color:aqua; border: 0.3em dashed orange; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:40vw; height:40vh; background-image:url(b.jpg);background-size: 100%; border-radius:1em; padding:1em; box-shadow:0 0 1em rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; font-family:Arial,sans-serif; z-index:20;">
+  <div style="text-align:center;">
+    <h3>Welcome!</h3>
+    <p>Have a nice day.</p>
+  </div>
+</div>
+<script>
+const buttons = document.querySelectorAll('.menu-btn');
+const overlay = document.getElementById('modalOverlay');
+const content = document.getElementById('modalContent');
+const closeBtn = document.getElementById('closeBtn');
+const fullImageOverlay = document.getElementById('fullImageOverlay');
+const fullImage = fullImageOverlay.querySelector('img');
+function openSection(section) {
+  content.innerHTML = '';
+  switch(section) {
+    case 'about':
+      content.innerHTML = `<h2>About</h2><p>Colorfull website.</p>`;
+      break;
+    case 'team':
+      content.innerHTML = `<h2>Team</h2><p>Our Team: <ul><li>Anna</li><li>Thomas</li></ul></p>`;
+      break;
+    case 'projects':
+      content.innerHTML = `<h2>Projects</h2><p>Our projects.</p>`;
+      break;
+    case 'gallery':
+      content.innerHTML = `
+        <h2>Gallery</h2>
+        <div class="gallery">
+          <img src="b.jpg" alt="Obraz 1" onclick="showFullImage('b.jpg')">
+          <img src="c.jpg" alt="Obraz 2" onclick="showFullImage('c.jpg')">
+          <img src="d.jpg" alt="Obraz 3" onclick="showFullImage('d.jpg')">
+          <img src="e.jpg" alt="Obraz 4" onclick="showFullImage('e.jpg')">
+          <img src="f.jpg" alt="Obraz 5" onclick="showFullImage('f.jpg')">
+          <img src="g.jpg" alt="Obraz 6" onclick="showFullImage('g.jpg')">
+        </div>`;
+      break;
+    case 'contact':
+      content.innerHTML = `
+        <h2>Contact</h2>
+        <form id="contactForm">
+          <input type="text" placeholder="Name/Surname" required>
+          <input type="email" placeholder="E-mail" required>
+          <textarea rows="4" placeholder="Message" required></textarea>
+          <button type="submit">Sent</button>
+        </form>`;
+      document.getElementById('contactForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        alert('Message sent! Thank You.');
+      });
+      break;
+  }
+  overlay.style.display = 'flex';
+}
+function showFullImage(src) {
+  fullImage.src = src;
+  fullImageOverlay.style.display = 'flex';
+}
+fullImage.onclick = () => {
+  fullImageOverlay.style.display = 'none';
+};
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    openSection(btn.dataset.section);
+  });
+});
+document.getElementById('closeBtn').addEventListener('click', () => {
+  overlay.style.display = 'none';
+});
+overlay.addEventListener('click', (e) => {
+  if (e.target === overlay) {
+    overlay.style.display = 'none';
+  }
+});
+window.onload = () => {
+  const cw = document.getElementById('centerWindow');
+  cw.classList.add('slide-in');
+};
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+let width = window.innerWidth;
+let height = window.innerHeight;
+
+canvas.width = width;
+canvas.height = height;
+
+window.addEventListener('resize', () => {
+  width = window.innerWidth;
+  height = window.innerHeight;
+  canvas.width = width;
+  canvas.height = height;
+});
+const figures = [];
+const count = 6;
+for (let i=0; i<count; i++) {
+  figures.push({
+    x: Math.random() * width,
+    y: Math.random() * height,
+    size: 0.1 + Math.random() * 20,
+    dx: (Math.random() - 0.5) * 1,
+    dy: (Math.random() - 0.5) * 1,
+      color: `rgba( ${Math.floor(Math.random()*155)}, ${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, 0.3 )`,
+    shape: Math.random() > 0.5 ? 'circle' : 'square',
+    hueShift: Math.random() * 360,
+  });
+}
+function draw() {
+  ctx.fillStyle = 'rgba(0,0,0,0.1)';
+  ctx.fillRect(0, 0, width, height);
+  for (let fig of figures) {
+   ctx.fillStyle = `rgba( ${Math.floor(Math.random()*5)}, ${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, 0.3 )`;
+    fig.x += fig.dx;
+    fig.y += fig.dy;
+    if (fig.x < 0 || fig.x > width) { fig.dx *= -1; }
+    if (fig.y < 0 || fig.y > height) { fig.dy *= -1; }
+    ctx.beginPath();
+    if (fig.shape === 'circle') {
+      ctx.arc(fig.x, fig.y, fig.size, 0, Math.PI*2);
+      ctx.fill();
+    } else {
+      ctx.fillRect(fig.x - fig.size/2, fig.y - fig.size/2, fig.size, fig.size);
+    }
+  }
+  requestAnimationFrame(draw);
+}
+
+draw();
+</script>
+</body>
+</html>

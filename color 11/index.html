@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Micro color 11 template</title>
+<style>
+  :root{
+    --bg:#0f1013;
+    --panel:#0b0b0d;
+    --accent:#1f6eff;
+    --muted:rgba(255,255,255,0.12);
+    --glass: rgba(255,255,255,0.03);
+    --text: #e6eefc;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg,#0e0f13 0%, #1a1b20 100%);
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px;
+  }
+  .frame{
+    width:1200px;
+    max-width:96vw;
+    height:640px;
+    background:linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 100%);
+    border-radius:14px;
+    box-shadow: 0 30px 60px rgba(6,8,15,0.6);
+    display:flex;
+    overflow:hidden;
+    position:relative;
+    border:1px solid rgba(255,255,255,0.03);
+  }
+  .left, .right{
+    flex:1;
+    padding:48px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    position:relative;
+  }
+  .left{
+    max-width:55%;
+    gap:18px;
+    padding-left:64px;
+    border-right:1px solid var(--muted);
+  }
+  .logo{
+    position:absolute;
+    top:18px;
+    left:22px;
+    font-weight:600;
+    letter-spacing:2px;
+    font-size:14px;
+    opacity:0.9;
+  }
+  nav.topnav{
+    position:absolute;
+    top:18px;
+    left:110px;
+    display:flex;
+    gap:20px;
+    align-items:center;
+    font-size:13px;
+    color:rgba(230,238,252,0.6);
+  }
+  nav.topnav a{color:inherit;text-decoration:none;opacity:0.8}
+  nav.topnav a:hover{opacity:1;color:var(--accent)}
+  .eyebrow{
+    font-size:12px;
+    color:rgba(230,238,252,0.5);
+    text-transform:uppercase;
+    letter-spacing:2px;
+  }
+  .headline{
+    display:flex;
+    align-items:center;
+    gap:18px;
+  }
+  .future{
+    font-family:Orbitron, monospace;
+    font-weight:700;
+    font-size:96px;
+    letter-spacing:6px;
+    line-height:0.85;
+    color:transparent;
+    -webkit-text-stroke:1px rgba(255,255,255,0.12);
+    position:relative;
+  }
+  .future .accent-block{
+    position:absolute;
+    left:0;
+    top:12px;
+    width:70px;
+    height:36px;
+    background:linear-gradient(90deg,var(--accent),#5aa4ff);
+    mix-blend-mode:screen;
+    border-radius:4px;
+    z-index:-1;
+    transform:translateX(2px);
+  }
+  .lead{
+    max-width:520px;
+    color:rgba(230,238,252,0.7);
+    font-size:15px;
+    margin-top:8px;
+    line-height:1.6;
+  }
+  .cta{
+    margin-top:24px;
+    display:inline-block;
+    background:transparent;
+    color:var(--accent);
+    border:1px solid rgba(31,110,255,0.18);
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+    transition:all .18s ease;
+  }
+  .cta:hover{
+    transform:translateY(-4px);
+    box-shadow: 0 10px 30px rgba(31,110,255,.12);
+  }
+  .right{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding-right:48px;
+    background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);
+  }
+  .robot-wrap{
+    width:520px;
+    height:420px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .robot{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:10px;
+    filter:drop-shadow(0 40px 80px rgba(0,0,0,0.7)) saturate(110%);
+    transform:translateY(6px);
+    transition:transform .6s cubic-bezier(.2,.9,.3,1), filter .25s;
+  }
+  .robot-wrap:hover .robot{
+    transform:translateY(0) scale(1.01) rotate(-1deg);
+    filter:drop-shadow(0 50px 90px rgba(0,0,0,0.75)) saturate(130%);
+  }
+  .info-card{
+    position:absolute;
+    right:10px;
+    bottom:6px;
+    width:220px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:10px;
+    padding:14px;
+    border:1px solid rgba(255,255,255,0.04);
+    backdrop-filter: blur(6px);
+    color:rgba(230,238,252,0.85);
+    font-size:13px;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+  }
+  .info-card h4{margin:0 0 6px 0;font-size:13px;font-weight:700;letter-spacing:0.6px}
+  .info-card p{margin:0;color:rgba(230,238,252,0.6);font-size:12px;line-height:1.4}
+  .side-meta{
+    position:absolute;
+    right:14px;
+    top:40%;
+    transform:translateY(-50%);
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    align-items:flex-end;
+    font-size:12px;
+    color:rgba(230,238,252,0.45);
+  }
+  .side-meta span{writing-mode:vertical-rl; transform:rotate(180deg); letter-spacing:6px}
+  @media (max-width:900px){
+    .frame{flex-direction:column;height:auto;padding:20px}
+    .left{max-width:100%;border-right:none;padding:28px}
+    .right{padding:18px}
+    .headline .future{font-size:56px}
+    .robot-wrap{width:100%;height:300px}
+    .info-card{position:static;margin-top:14px;width:100%}
+    .logo, nav.topnav{position:static;margin-bottom:12px}
+  }
+  .punkt {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: hsl(0, 100%, 50%);
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+  <div class="frame" role="main">
+    <div class="left">
+      <div class="logo">COSMOS</div>
+      <nav class="topnav" aria-label="Główne menu">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Works</a>
+        <a href="#">Services</a>
+        <a href="#">Contacts</a>
+      </nav>
+      <div class="eyebrow">HERE AND NOW</div>
+      <div class="headline" aria-hidden="false">
+        <div style="position:relative">
+          <div class="future" aria-label="Future headline">
+            <span class="accent-block" aria-hidden="true"></span>
+            MICRO WEBSITE
+          </div>
+        </div>
+      </div>
+      <div class="lead">
+        People who think about the future, about how to improve their lives, and take action in the direction. Have a piece of motion.
+      </div>
+      <button class="cta" onclick="location.href='#'">SOME NEWS</button>
+    </div>
+    <div class="right" aria-hidden="false">
+      <div class="robot-wrap" role="img" aria-label="3D robot placeholder">
+        <img class="robot" src="a.jpg" alt="robot placeholder image">
+        <div class="info-card">
+          <h4>TECHNOLOGY</h4>
+          <p>Ready for future with Micro website?</p>
+        </div>
+      </div>
+      <div class="side-meta" aria-hidden="true">
+        <span>Website</span>
+        <span>Design</span>
+        <span>Best</span>
+      </div>
+    </div>
+  </div>
+<script>
+   document.querySelectorAll('.topnav a').forEach(a=>{
+    a.addEventListener('mouseenter', ()=> a.style.opacity=1);
+    a.addEventListener('mouseleave', ()=> a.style.opacity=0.8);
+  });
+  const punkt = document.createElement('div');
+punkt.className = 'punkt';
+document.body.appendChild(punkt);
+const width = window.innerWidth;
+const height = window.innerHeight;
+let x = Math.random() * width;
+let y = Math.random() * height;
+let dx = (Math.random() - 0.5) * 4;
+let dy = (Math.random() - 0.5) * 4;
+let hue = Math.random() * 360;
+const startTime = Date.now();
+const duration = 60 * 1000; 
+function animate() {
+  const elapsed = Date.now() - startTime;
+  if (elapsed > duration) {
+    document.body.removeChild(punkt);
+    return;
+  }
+  punkt.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
+  hue += 1;
+  if (hue > 360) hue -= 360;
+  x += dx;
+  y += dy;
+  if (x < 0 || x > width - 8) { dx *= -1; }
+  if (y < 0 || y > height - 8) { dy *= -1; }
+  punkt.style.left = `${x}px`;
+  punkt.style.top = `${y}px`;
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Micro color 12 website template</title>
+<style>
+  html, body {
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+    background-color: black;
+    background: url(a.jpg);
+    color: #fff;
+  }
+  .portal {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vmin; height: 80vmin;
+    border-radius: 50%;
+    border: 2px solid #0ff5;
+    box-shadow: 0 0 50px #0ff3 inset, 0 0 30px #0ff5;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 1s ease-in-out;
+  }
+  .nav-ring {
+    position: relative;
+    width: 100%; height: 100%;
+  }
+  .nav-item {
+    position: absolute;
+    width: 120px; height: 40px;
+    transition: .9s;
+    color: aqua;
+    border: 0.1em dotted #db3eb1;
+    border-radius:1em;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .nav-item:hover {
+  color: silver;
+  background-color: #db3eb1;
+  filter: drop-shadow(0 0 10px #db3eb1) contrast(1) brightness(0.9);
+  transform: scale(1.1);
+  }
+  .nav-item:nth-child(1){ top:0; left:50%; transform:translate(-50%,-50%);}
+  .nav-item:nth-child(2){ top:20%; right:-5%;}
+  .nav-item:nth-child(3){ top:50%; right:-10%; transform:translateY(-50%);}
+  .nav-item:nth-child(4){ bottom:20%; right:-5%;}
+  .nav-item:nth-child(5){ bottom:0; left:50%; transform:translate(-50%,50%);}
+  .nav-item:nth-child(6){ bottom:20%; left:-5%;}
+  .nav-item:nth-child(7){ top:50%; left:-10%; transform:translateY(-50%);}
+  .nav-item:nth-child(8){ top:20%; left:-5%;}
+  .section {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+  }
+  .section.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .section h1 {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+    color: #0ff;
+  }
+  .section p {
+    max-width: 600px;
+    color: #ccc;
+  }
+  .back-btn {
+    margin-top: 2em;
+    padding: 0.5em 1.5em;
+    border: 1px solid #0ff;
+    background: transparent;
+    color: #0ff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .back-btn:hover {
+    background: #0ff3;
+  }
+   .punkt {
+    position: absolute;
+    width: 0.1em;
+    height: 0.1em;
+    border-radius: 50%;
+    background-color: hsl(0, 100%, 50%);
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+<div class="portal" id="portal">
+  <div class="nav-ring">
+    <div class="nav-item" data-section="home">Home</div>
+    <div class="nav-item" data-section="about">About</div>
+    <div class="nav-item" data-section="team">Team</div>
+    <div class="nav-item" data-section="news">News</div>
+    <div class="nav-item" data-section="blog">Blog</div>
+    <div class="nav-item" data-section="gallery">Gallery</div>
+    <div class="nav-item" data-section="contact">Contact</div>
+  </div>
+</div>
+<section class="section" id="home">
+  <h1>Welcome to QuantumCircle</h1>
+  <p>New design?</p>
+  <button class="back-btn" onclick="goBack()">Back</button>
+</section>
+<section class="section" id="about">
+  <h1>About</h1>
+  <p>Easy website template.</p>
+  <button class="back-btn" onclick="goBack()">Back</button>
+</section>
+<section class="section" id="team">
+  <h1>Team</h1>
+  <p>Our team create new future.</p>
+  <button class="back-btn" onclick="goBack()">Back</button>
+</section>
+<section class="section" id="news">
+  <h1>News</h1>
+  <p>Some news.</p>
+  <button class="back-btn" onclick="goBack()">Back</button>
+</section>
+<section class="section" id="blog">
+  <h1>Blog</h1>
+  <p>Creative design.</p>
+  <button class="back-btn" onclick="goBack()">Back</button>
+</section>
+<section class="section" id="gallery">
+  <h1>Gallery</h1>
+  <p>Powerfull creative template come from minimalism.</p>
+  <button class="back-btn" onclick="goBack()">Back</button>
+</section>
+<section class="section" id="contact">
+  <h1>Contact</h1>
+  <p>You have a question?</p>
+  <button class="back-btn" onclick="goBack()">Back</button>
+</section>
+<script>
+  const navItems = document.querySelectorAll('.nav-item');
+  const sections = document.querySelectorAll('.section');
+  const portal = document.getElementById('portal');
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const target = item.dataset.section;
+      sections.forEach(s => s.classList.remove('active'));
+      document.getElementById(target).classList.add('active');
+      portal.style.transform = 'translate(-50%, -50%) scale(0)';
+    });
+  });
+  function goBack(){
+    sections.forEach(s => s.classList.remove('active'));
+    portal.style.transform = 'translate(-50%, -50%) scale(1)';
+  }
+  const punkt = document.createElement('div');
+punkt.className = 'punkt';
+document.body.appendChild(punkt);
+const width = window.innerWidth;
+const height = window.innerHeight;
+let x = Math.random() * width;
+let y = Math.random() * height;
+let dx = (Math.random() - 0.5) * 2;
+let dy = (Math.random() - 0.5) * 2;
+let hue = Math.random() * 360;
+const startTime = Date.now();
+const duration = 60 * 1000; 
+function animate() {
+  const elapsed = Date.now() - startTime;
+  if (elapsed > duration) {
+    document.body.removeChild(punkt);
+    return;
+  }
+  punkt.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
+  hue += 1;
+  if (hue > 360) hue -= 360;
+  x += dx;
+  y += dy;
+  if (x < 0 || x > width - 8) { dx *= -1; }
+  if (y < 0 || y > height - 8) { dy *= -1; }
+  punkt.style.left = `${x}px`;
+  punkt.style.top = `${y}px`;
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+</body>
+</html>
