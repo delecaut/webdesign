@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Micro color 7 website template</title>
+<style>
+html{font-size:16px}html,body{margin:0;height:100%;font-family:Times New Roman,Poppins,system-ui,Arial,sans-serif;background:linear-gradient(120deg,#1e1e2f,#2d1e40,#1e2f3b);background-size:100% 600%;background-image:url('a.jpg');background-size:cover;background-position:center;background-repeat:no-repeat;animation:bgmove 16s ease infinite;overflow:hidden;color:#fff}
+@keyframes bgmove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+#main{position:relative;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
+#menu{position:fixed;bottom:1.875em;left:50%;transform:translateX(-50%);display:flex;gap:0.875em;z-index:30}
+#menu .btn{cursor:pointer;padding:1.5em;border-radius:999px;background:rgba(0,0,0,0.5);backdrop-filter:blur(0.5em);box-shadow:0 0 1.25em rgba(255,255,255,0.08),0 0 1.25em rgba(255,255,255,0.05) inset;color:#fff;text-transform:uppercase;font-size:1.2em;letter-spacing:0.0625em;transition:all 0.3s ease}
+#menu .btn:hover{color:aqua;background:rgba(255,255,255,0.2);transform:translateY(-0.1875em)}
+#menu .btn.active{background:rgba(255,255,255,0.35);color:#000;box-shadow:0 0 2.125em rgba(255,255,255,0.3)}
+#overlay,#gallery,#zoom{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:40}
+#overlay.show,#gallery.show,#zoom.show{display:flex}
+#overlay{background:rgba(0,0,0,0.8);backdrop-filter:blur(0.625em);flex-direction:column;animation:fade 0.5s ease forwards}
+#overlay h1{font-size:clamp(2.25em,6vw,6.25em);text-shadow:0 0 0.9375em rgba(255,255,255,0.3);letter-spacing:0.25em;opacity:0;transform:translateY(1.25em);animation:pop 0.8s ease 0.2s forwards}
+@keyframes pop{to{opacity:1;transform:translateY(0)}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+#gallery{background:rgba(0,0,0,0.9);padding:1.875em;overflow-y:auto;justify-content:flex-start;align-items:flex-start;flex-wrap:wrap;gap:0.625em}
+#gallery img{width:calc(33.333% - 0.625em);aspect-ratio:1/1;object-fit:cover;border-radius:0.625em;cursor:pointer;transition:transform 0.4s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease}
+#gallery img:hover{transform:scale(1.06);box-shadow:0 0 1.25em rgba(255,255,255,0.2)}
+#zoom{background:rgba(0,0,0,0.95);backdrop-filter:blur(0.75em)}
+#zoom img{max-width:56.25em;max-height:56.25em;border-radius:0.875em;box-shadow:0 0 3.125em rgba(255,255,255,0.4);animation:pop 0.4s ease}
+#hint{position:absolute;top:0.5em;left:0.5em;background:transparent}
+@media(max-width:43.75em){#gallery img{width:calc(50% - 0.625em)}}
+@media(max-width:31.25em){#gallery img{width:100%}}
+#closeBtn {position: fixed;top: 1em;left: 1em;width: 6em;height: 6em;  border-radius: 50%;background: rgba(0,0,0,0.5);color: #fff;display: flex;align-items: center;justify-content: center;cursor: pointer;font-size: 1.5em;z-index: 50;display: none;font-weight: bold;}
+#closeBtn:hover {background: rgba(255,255,255,0.2);color:aqua;}
+</style>
+</head>
+<body>
+<div id="main">
+  <div id="overlay"><h1 id="overlay-text"></h1></div>
+  <div id="gallery">
+    <img src="b.jpg" alt="">
+    <img src="c.jpg" alt="">
+    <img src="d.jpg" alt="">
+    <img src="e.jpg" alt="">
+    <img src="f.jpg" alt="">
+    <img src="g.jpg" alt="">
+    <img src="h.jpg" alt="">
+    <img src="i.jpg" alt="">
+    <img src="j.jpg" alt="">
+  </div>
+  <div id="zoom"><img src="" alt=""></div>
+  <div id="hint"></div>
+</div>
+<div id="closeBtn">Close</div>
+<div id="menu">
+  <div class="btn" data-act="home">home</div>
+  <div class="btn" data-act="about">about</div>
+  <div class="btn" data-act="team">team</div>
+  <div class="btn" data-act="news">news</div>
+  <div class="btn" data-act="blog">blog</div>
+  <div class="btn" data-act="gallery">gallery</div>
+  <div class="btn" data-act="contact">contact</div>
+</div>
+<script>
+(function(){
+  const btns=document.querySelectorAll('#menu .btn');
+  const overlay=document.getElementById('overlay');
+  const overlayText=document.getElementById('overlay-text');
+  const gallery=document.getElementById('gallery');
+  const zoom=document.getElementById('zoom');
+  const zoomImg=zoom.querySelector('img');
+  const hint=document.getElementById('hint');
+  const closeBtn=document.getElementById('closeBtn');
+  function hideAll(){
+    overlay.classList.remove('show');
+    gallery.classList.remove('show');
+    zoom.classList.remove('show');
+    hint.classList.remove('show');
+    btns.forEach(b=>b.classList.remove('active'));
+  }
+  function showOverlay(name){
+    overlayText.textContent=name;
+    overlay.classList.add('show');
+    hint.classList.add('show');
+  }
+  function showGallery(){
+    gallery.classList.add('show');
+    hint.classList.add('show');
+    document.getElementById('closeBtn').style.display='flex'; 
+  }
+  function showZoom(src){
+    zoomImg.src=src;
+    zoom.classList.add('show');
+    hint.classList.add('show');
+  }
+  function hideZoom(){
+    zoom.classList.remove('show');
+    zoomImg.src='';
+  }
+  closeBtn.addEventListener('click', ()=>{
+    hideAll();
+    document.getElementById('closeBtn').style.display='none'; 
+  });
+  btns.forEach(b=>{
+    b.addEventListener('click',()=>{
+      const act=b.getAttribute('data-act');
+      hideAll();
+      b.classList.add('active');
+      if(act==='home')return;
+      if(act==='gallery'){
+        showGallery();
+        return;
+      }
+      showOverlay(act);
+    });
+  });
+  overlay.addEventListener('click',e=>{if(e.target===overlay)hideAll();});
+  gallery.addEventListener('click',e=>{if(e.target===gallery)hideAll();});
+  zoom.addEventListener('click',()=>hideZoom());
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){if(zoom.classList.contains('show')){hideZoom();return;}hideAll();}
+  });
+  gallery.querySelectorAll('img').forEach(img=>{
+    img.addEventListener('click',e=>{
+      e.stopPropagation();
+      showZoom(img.getAttribute('src'));
+    });
+  });
+  hideAll();
+})();
+</script>
+</body>
+</html>

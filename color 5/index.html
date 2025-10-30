@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Micro color 5 website template</title>
+  <style>
+    body{margin:0;padding:0;height:100vh;background:url('a.jpg') no-repeat center/cover;display:flex;justify-content:center;align-items:center;font-family:sans-serif;color:#fff}
+    .buttons{display:flex;gap:1em;position:absolute;top:2em;z-index:10}
+    .btn{padding:0.7em 1.5em;border:2px solid rgba(255,255,255,0.8);border-radius:0.5em;cursor:pointer;font-size:1.1em;background:rgba(0,0,0,0.5);box-shadow:0 2px 10px rgba(0,0,0,0.7);transition:0.3s}
+    .btn:hover{background:rgba(255,255,255,0.7);color:#000;transform:scale(1.1)}
+    .overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:1000}
+    .contentBox{background:#222;padding:2em;border-radius:0.5em;text-align:center;max-width:90%;max-height:80%;overflow:auto;animation:fadeIn 0.5s ease}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:1em;width:90%;max-height:80vh;overflow:auto}
+    .gallery img{width:100%;border-radius:0.3em;box-shadow:0 2px 8px rgba(0,0,0,0.5);transition:transform 0.3s}
+    .gallery img:hover{transform:scale(1.05)}
+  </style>
+</head>
+<body>
+
+  <!-- Buttony -->
+  <div class="buttons">
+    <div class="btn" data-action="home">Home</div>
+    <div class="btn" data-action="about">About</div>
+    <div class="btn" data-action="team">Team</div>
+    <div class="btn" data-action="news">News</div>
+    <div class="btn" data-action="blog">Blog</div>
+    <div class="btn" data-action="gallery">Gallery</div>
+    <div class="btn" data-action="contact">Contact</div>
+  </div>
+
+  <!-- Overlay do wyświetlania treści -->
+  <div class="overlay" id="overlay">
+    <div class="contentBox" id="content"></div>
+  </div>
+
+  <script>
+    const overlay = document.getElementById('overlay');
+    const content = document.getElementById('content');
+    const buttons = document.querySelectorAll('.btn');
+
+    buttons.forEach(button => {
+      button.onclick = () => {
+        const action = button.dataset.action;
+        if(action === 'gallery') {
+          showGallery();
+        } else {
+          showMessage(action);
+        }
+      };
+    });
+
+    function showMessage(text) {
+      content.innerHTML = `<h1>${text}</h1>`;
+      overlay.style.display = 'flex';
+    }
+
+    function showGallery() {
+      content.innerHTML = '';
+      const gallery = createGallery();
+      content.appendChild(gallery);
+      overlay.style.display = 'flex';
+    }
+
+    function createGallery() {
+      const galleryDiv = document.createElement('div');
+      galleryDiv.className = 'gallery';
+      ['b.jpg', 'c.jpg', 'd.jpg', 'e.jpg', 'f.jpg', 'g.jpg', 'h.jpg', 'i.jpg', 'j.jpg'].forEach(image => {
+        const img = document.createElement('img');
+        img.src = image;
+        img.onclick = () => showImageOverlay(image);
+        galleryDiv.appendChild(img);
+      });
+      return galleryDiv;
+    }
+
+    function showImageOverlay(image) {
+      content.innerHTML = `<img src="${image}" style="width:100%;max-height:80vh;" />`;
+      overlay.style.display = 'flex';
+    }
+
+    overlay.onclick = () => {
+      overlay.style.display = 'none';
+    };
+  </script>
+
+</body>
+</html>

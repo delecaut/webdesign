@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Micro color 8 website</title>
+<style>
+body {margin: 0; padding: 0; height: 100vh; background: url('a.jpg') no-repeat center/cover; font-family: Arial, sans-serif; overflow: hidden;} #top-buttons {position: fixed; top: 35%; left: 50%; transform: translateX(-50%); display: flex; gap: 1em; z-index: 10;} .btn {width: 4em; height: 4em; background: rgba(0, 0, 0, 0.6); color: #fff; font-size: 1em; display: flex; align-items: center; justify-content: center; border-radius: 10%; cursor: pointer; transition: transform 0.3s, background 0.3s;} .btn:hover {background: #ff6f61; transform: scale(1.4);} #closeBtn { position: fixed; top: 1em; left: 1em; width: 4em; height: 4em; z-index:9999; background: rgba(255,255,255,0.2);border-radius: 50%; display: none; align-items: center; justify-content: center; color: aqua; cursor: pointer; font-weight: bold; opacity:1;}#closeBtn:hover{margin-top:0.1em; background: rgba(255,255,255,0.3)}#overlay {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 1000; opacity: 0; transition: opacity 0.3s;} #overlay.active {display: flex; opacity: 1;} #contentBox {background: #222; padding: 2em; border-radius: 1em; max-width: 80%; max-height: 80%; overflow: auto; color: #fff;} .gallery {display: grid; grid-template-columns: repeat(3, 1fr); gap: 1em;} .gallery img {width: 250px; height: 250px; object-fit: cover; border-radius: 0.6em; cursor: pointer; transition: transform 0.3s, filter 0.3s;} .gallery img:hover {transform: scale(1.1); filter: brightness(1.2);} @media(max-width: 600px) {#top-buttons {flex-direction: column; top: 1em; left: 50%; transform: translateX(-50%);} .btn {width: 3em; height: 3em; font-size: 0.9em;}}
+</style>
+</head>
+<body>
+<div id="closeBtn">X</div>
+<div id="top-buttons">
+  <div class="btn" data-action="about">About</div>
+  <div class="btn" data-action="team">Team</div>
+  <div class="btn" data-action="news">News</div>
+  <div class="btn" data-action="blog">Blog</div>
+  <div class="btn" data-action="gallery">Gallery</div>
+  <div class="btn" data-action="contact">Contact</div>
+</div>
+<div id="overlay">
+  <div id="contentBox"></div>
+</div>
+<script>
+const overlay = document.getElementById('overlay');
+const contentBox = document.getElementById('contentBox');
+const closeBtn = document.getElementById('closeBtn');
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const action = btn.dataset.action;
+    if (action === 'gallery') {
+      showGallery();
+    } else {
+      showMessage(action);
+    }
+  });
+});
+function showMessage(text) {
+  contentBox.innerHTML = `<h2 style="margin:0;">${text}</h2>`;
+  overlay.classList.add('active');
+  closeBtn.style.display = 'flex';
+}
+function showGallery() {
+  contentBox.innerHTML = '';
+  const galleryDiv = document.createElement('div');
+  galleryDiv.className = 'gallery';
+  ['b.jpg', 'c.jpg', 'd.jpg', 'e.jpg', 'f.jpg', 'g.jpg', 'h.jpg', 'i.jpg', 'j.jpg'].forEach(src => {
+    const img = document.createElement('img');
+    img.src = src;
+    img.onclick = () => showImageFull(src);
+    galleryDiv.appendChild(img);
+  });
+  contentBox.appendChild(galleryDiv);
+  overlay.classList.add('active');
+  closeBtn.style.display = 'flex';
+}
+function showImageFull(src) {
+  contentBox.innerHTML = `<img src="${src}" style="width:100%; max-height:80vh;">`;
+  contentBox.querySelector('img').onclick = () => showGallery();
+}
+document.getElementById('overlay').addEventListener('click', (e) => {
+  if (e.target === overlay) {
+    overlay.classList.remove('active');
+    closeBtn.style.display = 'none';
+  }
+});
+closeBtn.onclick = () => {
+  overlay.classList.remove('active');
+  closeBtn.style.display = 'none';
+};
+</script>
+</body>
+</html>

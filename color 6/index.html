@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Micro color 6 website template</title>
+<style>html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial,sans-serif}body{background:url('a.jpg') center/cover no-repeat fixed;color:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}#app{width:100vw;height:100vh;position:relative;display:flex;align-items:flex-start;justify-content:flex-start}nav{position:fixed;left:30px;top:30px;display:flex;flex-direction:column;gap:12px;z-index:30}nav .btn{cursor:pointer;padding:0.9em;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);border-radius:10px;color:#fff;user-select:none;transition:transform .18s ease,background .18s linear;box-shadow:0 6px 18px rgba(0,0,0,0.8)}nav .btn:hover{transform:translateY(-0.1em);color:orange;background:rgba(0,0,0,0.6);border:0.1em solid orange;}nav .btn.active{background:linear-gradient(90deg,rgba(255,255,255,0.08),rgba(255,255,255,0.04));box-shadow:0 10px 30px rgba(0,0,0,0.5)}#overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.82);z-index:40;padding:30px}#overlay.show{display:flex}#overlay h1{font-size:clamp(28px,6vw,84px);text-transform:uppercase;letter-spacing:4px;color:#fff;margin:0;font-weight:700;opacity:0;transform:translateY(8px) scale(.98);transition:opacity .28s ease,transform .28s cubic-bezier(.2,.8,.2,1)}#overlay.show h1{opacity:1;transform:none}#gallery{position:fixed;inset:0;display:none;z-index:45;background:#000;align-items:center;justify-content:center;padding:20px;overflow:hidden}#gallery.show{display:flex}#grid{width:100%;height:100%;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:6px}#grid .cell{width:100%;height:100%;overflow:hidden;border-radius:6px;background:#111}#grid img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s cubic-bezier(.2,.8,.2,1),opacity .3s ease;cursor:pointer}#grid img:hover{transform:scale(1.06)}#zoom{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.95);z-index:60}#zoom.show{display:flex}#zoom img{max-width:90vw;max-height:90vh;border-radius:8px;box-shadow:0 0 40px rgba(0,0,0,0.8);animation:fadeIn .3s ease}@keyframes fadeIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}.close-hint{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;background:rgba(255,255,255,0.06);padding:8px 12px;border-radius:999px;font-size:13px;color:#eee;z-index:50;display:none}.close-hint.show{display:block}@media(max-width:700px){nav{left:14px;top:14px;gap:8px}nav .btn{padding:10px 14px;border-radius:8px}#grid{gap:4px}}</style>
+</head>
+<body>
+<div id="app">
+  <nav>
+    <div class="btn" data-action="home">home</div>
+    <div class="btn" data-action="about">about</div>
+    <div class="btn" data-action="team">team</div>
+    <div class="btn" data-action="news">news</div>
+    <div class="btn" data-action="blog">blog</div>
+    <div class="btn" data-action="gallery">gallery</div>
+    <div class="btn" data-action="contact">contact</div>
+  </nav>
+  <div id="overlay" aria-hidden="true"><h1 id="overlay-title"></h1></div>
+  <div id="gallery" aria-hidden="true">
+    <div id="grid">
+      <div class="cell"><img src="b.jpg" alt="b"></div>
+      <div class="cell"><img src="c.jpg" alt="c"></div>
+      <div class="cell"><img src="d.jpg" alt="d"></div>
+      <div class="cell"><img src="e.jpg" alt="e"></div>
+      <div class="cell"><img src="f.jpg" alt="f"></div>
+      <div class="cell"><img src="g.jpg" alt="g"></div>
+      <div class="cell"><img src="h.jpg" alt="h"></div>
+      <div class="cell"><img src="i.jpg" alt="i"></div>
+      <div class="cell"><img src="j.jpg" alt="j"></div>
+    </div>
+  </div>
+  <div id="zoom"><img src="" alt="zoom"></div>
+  <div class="close-hint" id="close-hint">Type "Escape" to close</div>
+</div>
+<script>
+(function(){
+  const btns=document.querySelectorAll('nav .btn');
+  const overlay=document.getElementById('overlay');
+  const overlayTitle=document.getElementById('overlay-title');
+  const gallery=document.getElementById('gallery');
+  const zoom=document.getElementById('zoom');
+  const zoomImg=zoom.querySelector('img');
+  const closeHint=document.getElementById('close-hint');
+  function clearActive(){btns.forEach(b=>b.classList.remove('active'));}
+  function showOverlay(name){gallery.classList.remove('show');zoom.classList.remove('show');overlayTitle.textContent=name;overlay.classList.add('show');closeHint.classList.remove('show');}
+  function showGallery(){overlay.classList.remove('show');zoom.classList.remove('show');gallery.classList.add('show');closeHint.classList.add('show');}
+  function hideAll(){overlay.classList.remove('show');gallery.classList.remove('show');zoom.classList.remove('show');clearActive();closeHint.classList.remove('show');}
+  function showZoom(src){zoomImg.src=src;zoom.classList.add('show');closeHint.classList.add('show');}
+  function hideZoom(){zoom.classList.remove('show');zoomImg.src='';}
+  btns.forEach(b=>{
+    b.addEventListener('click',()=>{
+      const act=b.getAttribute('data-action');
+      clearActive();b.classList.add('active');
+      if(act==='home'){hideAll();return;}
+      if(act==='gallery'){showGallery();return;}
+      showOverlay(act);
+    });
+  });
+overlay.addEventListener('click',e=>{if(e.target===overlay)hideAll();});
+gallery.addEventListener('click',e=>{if(e.target===gallery)hideAll();});
+  zoom.addEventListener('click',()=>hideZoom());
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){if(zoom.classList.contains('show')){hideZoom();return;}hideAll();}
+  });
+  document.querySelectorAll('#grid img').forEach(img=>{
+    img.addEventListener('click',e=>{
+      e.stopPropagation();
+if(zoom.classList.contains('show')&&zoomImg.src.includes(img.getAttribute('src'))){hideZoom();}
+      else{showZoom(img.getAttribute('src'));}
+    });
+  });
+  hideAll();
+})();
+</script>
+</body>
+</html>
