@@ -1,9 +1,6 @@
-                                 Minimalistic website templates: Enjoy for free.
-<img width="1842" height="745" alt="black" src="https://github.com/user-attachments/assets/05a2db83-20c9-4dc7-bb4f-a8ecd2bc07f5" />
-<img width="1842" height="745" alt="blue" src="https://github.com/user-attachments/assets/7d2dbe57-4030-487b-99dc-3e8781909b55" />
-<img width="1842" height="745" alt="color" src="https://github.com/user-attachments/assets/a2ed9a70-22ca-4e99-951c-abb2ce83ac37" />
-<img width="1842" height="745" alt="lime" src="https://github.com/user-attachments/assets/141bd50c-9275-4ccf-abd9-2ab425086292" />
-<img width="1842" height="745" alt="orange" src="https://github.com/user-attachments/assets/c362222e-c500-4af7-971e-7bb9031a605a" />
-<img width="1842" height="745" alt="pink" src="https://github.com/user-attachments/assets/c3d21428-8257-4197-a74a-db4d78c1079a" />
-<img width="1842" height="745" alt="red" src="https://github.com/user-attachments/assets/ad350062-c6f3-47ed-a8fd-707fca5e4b86" />
-<img width="1842" height="745" alt="white" src="https://github.com/user-attachments/assets/ead1d473-5c53-4960-bb71-9f765281289a" />
+                                 Minimalistic website templates. Enjoy for free.
+
+![blue lime pink red](https://github.com/user-attachments/assets/5f1c7e3a-b96b-487b-97a6-623f8d63e0c1)
+![color 2 color 3 color 4 color 5](https://github.com/user-attachments/assets/e299fd9b-b4a0-4c0a-a1d6-044292bbc9be)
+![color 6 color 7 color 8 color 8](https://github.com/user-attachments/assets/2275510d-d24e-4621-98bb-8590545b50af)
+![color 10 color 11 color 12](https://github.com/user-attachments/assets/5db2c3a2-12cc-422e-a549-bcd73a59dd74)
